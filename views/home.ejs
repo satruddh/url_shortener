@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid container">
+        <div class="inputContainer">
+
+            <form action="/" method="post" class="shortenForm">
+                <input class="form-control" placeholder="Enter URL to shorten" type="text" name="originalURL" id="originalURL"/>
+                <input id="submitBtn" class="btn btn-primary" type="submit" value="Shorten">
+            </form>
+        </div>
+        <% if(err) { %>
+        <div class="msgConatiner">
+                <div class="errmsg"><%= err %></div>
+        </div>
+         <% } %>
+         <div class="tableContainer">
+            <table class="table table-striped table-hover urlTable">
+                <thead class="table-dark">
+                    <th class="column1">Original URL</th>
+                    <th class="column2">Shortened URL</th>
+                    <th class="column3">Action</th>
+                </thead>
+                <tbody>
+                    <% allUrls.forEach((elem,index)=>{ %>
+                        <tr id="<%= index %>">
+                            <td class="orgURL column1"><%= elem.originalUrl %></td>
+                            <td class="column2"><a href="/<%= elem.shortUrl %>"><%= elem.shortUrl %></a></td>
+                            <td class="column3"><a href="/remove/<%= elem.shortUrl %>"><button class="btn btn-danger">Remove</button></a></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
